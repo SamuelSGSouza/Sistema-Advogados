@@ -14,6 +14,7 @@ class Processo(models.Model):
     situacao_processo = models.CharField(max_length=255, verbose_name='Situação do Processo', null=True, blank=True)
     perito = models.CharField(max_length=255, verbose_name='Perito', null=True, blank=True)
     status = models.CharField(max_length=255, verbose_name='Status', default='Fase 1 Concluída')
+    paginas = models.CharField(max_length=1000, verbose_name='Páginas', null=True, blank=True)
     data_cadastro = models.DateTimeField(auto_now_add=True, verbose_name='Data de Cadastro no Sistema')
 
 class Advogado(models.Model):

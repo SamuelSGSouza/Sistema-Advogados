@@ -8,6 +8,8 @@ from . import models as core_models
 from core import tasks
 import os
 
+from RPA.fase_3.fase_3 import main_fase_3
+
 #View inicial do sistema
 class DashBoard(TemplateView):
     template_name = "core/dashboard.html"
@@ -91,6 +93,27 @@ class Fase2(TemplateView):
         messages.success(self.request, 'Processo iniciado com sucesso! Recarregue a página para atualizar o status.')
         return redirect('fase2')
 
+class Fase3(TemplateView):
+    template_name = "core/executar_fase3.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        status = models.StatusFase.objects.filter(fase="Fase 3").first()
+        if status.status == "Processando":
+            messages.warning(self.request, f'Processo iniciado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+        if status.status == "Finalizado":
+            messages.success(self.request, f'Processo finalizado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+            status.status = "Iniciado"
+            status.save()
+        context['status'] = status
+        return context
+
+    def post(self,*args, **kwargs):
+        models.StatusFase.objects.update_or_create(fase="Fase 3", status="Iniciado")
+        main_fase_3()
+
+        messages.success(self.request, 'Processo iniciado com sucesso! Recarregue a página para atualizar o status.')
+        return redirect('fase3')
 
 def cadastrar_sec_desejadas(request):
     models.SecoesDesejadas.objects.all().delete()
