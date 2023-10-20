@@ -22,3 +22,12 @@ class TermoCategoria(models.Model):
     fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 1')
 
 
+############## MODELS FASE 2 #####################
+class SecoesDesejadas(models.Model):
+    """ Aqui serão inseridos as seções que serão coletadas do site
+        do processo."""
+    secao = models.CharField(max_length=255, verbose_name='Seção')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 2')
+    
+
+

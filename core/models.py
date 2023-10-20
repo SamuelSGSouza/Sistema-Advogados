@@ -13,7 +13,7 @@ class Processo(models.Model):
     juiz = models.CharField(max_length=255, verbose_name='Juiz', null=True, blank=True)
     situacao_processo = models.CharField(max_length=255, verbose_name='Situação do Processo', null=True, blank=True)
     perito = models.CharField(max_length=255, verbose_name='Perito', null=True, blank=True)
-    status = models.CharField(max_length=255, verbose_name='Status', null=True, blank=True)
+    status = models.CharField(max_length=255, verbose_name='Status', default='Fase 1 Concluída')
     data_cadastro = models.DateTimeField(auto_now_add=True, verbose_name='Data de Cadastro no Sistema')
 
 class Advogado(models.Model):

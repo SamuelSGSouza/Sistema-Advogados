@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, View
 from django.contrib import messages
 
-from RPA.fase_1.pdf_extractor import main_extrator
+from RPA.fase_2.download_pdfs import wrap_downloads
 from configs import models
 from . import models as core_models
 from core import tasks
@@ -54,6 +54,37 @@ class Fase1(TemplateView):
 
         messages.success(self.request, 'Processo iniciado com sucesso!')
         return redirect('fase1')
+
+#view da Fase 2
+class Fase2(TemplateView):
+    template_name = "core/executar_fase2.html"
+
+    def post(self,*args, **kwargs):
+        wrap_downloads()
+
+        messages.success(self.request, 'Processo iniciado com sucesso!')
+        return redirect('fase2')
+
+
+def cadastrar_sec_desejadas(request):
+    models.SecoesDesejadas.objects.all().delete()
+    secoes = []
+    with open("Configuracoes/tipos_secoes.txt", "r", encoding="utf-8") as f:
+        ls = f.read().split("\n")
+        for l in ls:
+            secoes.append(l.strip())
+
+    secoes_cadastrar = []
+    for secao in secoes:
+        secoes_cadastrar.append(
+            models.SecoesDesejadas(
+                secao=secao,
+                fase='Fase 2'
+            )
+        )
+    models.SecoesDesejadas.objects.bulk_create(secoes_cadastrar)
+
+    return redirect('index')
 
 def cadastrar_termos(request):
     with open("Configuracoes/termos_contabilidade.txt", "r") as arquivo:

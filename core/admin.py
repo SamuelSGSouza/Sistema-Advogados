@@ -5,7 +5,7 @@ from . import models
 class ProcessoAdmin(admin.ModelAdmin):
     list_display = ('numero_judicial', 'classe', 'categoria', )
     search_fields = ('numero_judicial', 'classe', 'categoria', )
-    list_filter = ('categoria', )
+    list_filter = ('categoria', 'status' )
 
 @admin.register(models.Advogado)
 class AdvogadoAdmin(admin.ModelAdmin):

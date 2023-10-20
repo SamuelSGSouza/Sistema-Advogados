@@ -17,4 +17,8 @@ class TermoNegativoAdmin(admin.ModelAdmin):
     list_display = ('termo', "fase")
     search_fields = ('termo', )
 
+@admin.register(models.SecoesDesejadas)
+class SecoesDesejadasAdmin(admin.ModelAdmin):
+    list_display = ('secao', "fase")
+    search_fields = ('secao', )
 
