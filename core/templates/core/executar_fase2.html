@@ -34,15 +34,17 @@
                 </div>
 
                 <div class="container">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        
-                        
-                        
-                        <button type="submit" class="btn btn-primary  mt-4">
-                            Iniciar Execução
-                        </button>
-                    </form>
+                    {% if status.status != "Processando" %}
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            
+                            
+                            <button type="submit" class="btn btn-primary  mt-4">
+                                Iniciar Execução
+                            </button>
+                        </form>
+                    {% endif %}
                 </div>
               </div>
               <!-- End of Main Content -->

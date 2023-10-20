@@ -34,20 +34,22 @@
                 </div>
 
                 <div class="container">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-wrap" >
-                            <h3>Arraste e solte ou Clique Aqui</h3>
+                    {% if status.status != "Processando" %}
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-wrap" >
+                                <h3>Arraste e solte ou Clique Aqui</h3>
+                                
+                                <i class="fas fa-solid fa-plus fa-2x"></i>
+                                <input type="file" id="files" class="btn btn-default" multiple="multiple" name="arquivos" accept=".pdf" required>
+                            </div>
                             
-                            <i class="fas fa-solid fa-plus fa-2x"></i>
-                            <input type="file" id="files" class="btn btn-default" multiple="multiple" name="arquivos" accept=".pdf" required>
-                        </div>
-                        
-                        
-                        <button type="submit" class="btn btn-primary  mt-4">
-                            Enviar Arquivos
-                        </button>
-                    </form>
+                            
+                            <button type="submit" class="btn btn-primary  mt-4">
+                                Enviar Arquivos
+                            </button>
+                        </form>
+                    {% endif %}
                 </div>
               </div>
               <!-- End of Main Content -->

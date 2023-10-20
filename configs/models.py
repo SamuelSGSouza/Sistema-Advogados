@@ -1,5 +1,11 @@
 from django.db import models
 
+class StatusFase(models.Model):
+    """ Aqui serão inseridos os status de cada fase."""
+    fase = models.CharField(max_length=255, verbose_name='Fase')
+    status = models.CharField(max_length=255, verbose_name='Status')
+    data_modificado = models.DateTimeField(auto_now=True, verbose_name='Data de Modificação')
+
 ############## MODELS FASE 1 #####################
 class TermoCaptura(models.Model):
     """ Aqui serão inseridos os termos que, caso sejam encontrados num
@@ -20,7 +26,6 @@ class TermoCategoria(models.Model):
     termo = models.CharField(max_length=255, verbose_name='Termo de Categoria')
     categoria = models.CharField(max_length=255, verbose_name='Categoria')
     fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 1')
-
 
 ############## MODELS FASE 2 #####################
 class SecoesDesejadas(models.Model):

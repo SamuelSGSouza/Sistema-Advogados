@@ -1,6 +1,12 @@
 from django.contrib import admin
 from . import models
 
+@admin.register(models.StatusFase)
+class StatusFaseAdmin(admin.ModelAdmin):
+    list_display = ('fase', 'status', "data_modificado")
+    search_fields = ('fase', 'status', )
+    list_filter = ('fase', )
+
 @admin.register(models.TermoCategoria)
 class TermoCategoriaAdmin(admin.ModelAdmin):
     list_display = ('termo', 'categoria', "fase")

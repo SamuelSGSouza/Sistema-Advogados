@@ -1,8 +1,8 @@
+from typing import Any
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, View
 from django.contrib import messages
 
-from RPA.fase_2.download_pdfs import wrap_downloads
 from configs import models
 from . import models as core_models
 from core import tasks
@@ -29,6 +29,18 @@ class DashBoard(TemplateView):
 class Fase1(TemplateView):
     template_name = "core/executar_fase1.html"
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        status = models.StatusFase.objects.filter(fase="Fase 1").first()
+        if status.status == "Processando":
+            messages.warning(self.request, f'Processo iniciado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+        if status.status == "Finalizado":
+            messages.success(self.request, f'Processo finalizado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+            status.status = "Iniciado"
+            status.save()
+        context['status'] = status
+        return context
+
     def post(self,*args, **kwargs):
         #pegando os arquivos pdfs enviados
         arquivos = self.request.FILES.getlist('arquivos')
@@ -50,19 +62,33 @@ class Fase1(TemplateView):
             files.append(file)
 
         # main_extrator(files)
+        models.StatusFase.objects.update_or_create(fase="Fase 1", status="Iniciado")
         tasks.processa_fase_1.delay(files)
 
-        messages.success(self.request, 'Processo iniciado com sucesso!')
+        messages.success(self.request, 'Processo iniciado com sucesso! Recarregue a página para atualizar o status.')
         return redirect('fase1')
 
 #view da Fase 2
 class Fase2(TemplateView):
     template_name = "core/executar_fase2.html"
 
-    def post(self,*args, **kwargs):
-        wrap_downloads()
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        status = models.StatusFase.objects.filter(fase="Fase 2").first()
+        if status.status == "Processando":
+            messages.warning(self.request, f'Processo iniciado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+        if status.status == "Finalizado":
+            messages.success(self.request, f'Processo finalizado em {status.data_modificado.strftime("%d/%m/%Y")} às {status.data_modificado.strftime("%H:%M:%S")}')
+            status.status = "Iniciado"
+            status.save()
+        context['status'] = status
+        return context
 
-        messages.success(self.request, 'Processo iniciado com sucesso!')
+    def post(self,*args, **kwargs):
+        models.StatusFase.objects.update_or_create(fase="Fase 2", status="Iniciado")
+        tasks.processa_fase_2.delay()
+
+        messages.success(self.request, 'Processo iniciado com sucesso! Recarregue a página para atualizar o status.')
         return redirect('fase2')
 
 
