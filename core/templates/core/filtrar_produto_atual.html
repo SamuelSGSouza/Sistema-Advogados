@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cadastrar{% endblock %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+{% block conteudo %}
+<div id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+  
+      {% include 'parcials/_sidebar.html' %}
+  
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+  
+          <!-- Main Content -->
+          <div id="content">
+  
+              <!-- Topbar -->
+                {% include 'parcials/_navbar.html' %}
+                
+              <!-- End of Topbar -->
+              {% if colunas_faltantes %}
+              <div style="min-height: 80vh; color: black!important" class="container">
+                <h3>No arquivo foram encontradas as seguintes colunas:</h3>
+                <p>{{colunas_encontradas}}</p>
+                <h4>Selecione os novos nomes para as seguintes colunas:</h4>
+                <form  action="{% url 'substituir_nomes' %}">
+                    <input type="hidden" name="database" value="{{database}}">
+                    {% for coluna in colunas_faltantes %}
+                        <div class="form-group">
+                            <label for="email">{{coluna}}:</label>
+                            <input type="text" name="{{coluna}}" class="form-control" placeholder="Novo Nome" id="{{coluna}}">
+                        </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="btn btn-primary my-4">Substituir</button>
+                </form>
+                
+              </div>
+              {% else %}
+              <!-- Begin Page Content -->
+              <div class="container-fluid" id="conteudo-interno">
+                <a href="{% url 'csv_filtrado' %}" target="_blank" class="btn btn-success my-3 mx-2">Baixar csv Filtrado</a>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Insira os arquivos desejados e clique em enviar</h1>
+                </div>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    
+                    <h2 class="h3 mb-0 text-gray-800">Filtrar Produto Atual</h2>
+                </div>
+
+                <div class="container">
+                    <form action="{% url 'filtrar_produto_atual' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-wrap" >
+                            <h3>Arraste e solte ou Clique Aqui</h3>
+                            
+                            <i class="fas fa-solid fa-plus fa-2x"></i>
+                            <input type="file" id="files" class="btn btn-default" multiple="multiple" name="arquivos" accept=".csv, .txt, .xlsx, .xsx" required>
+                        </div>
+                        {% if database == "Viabilidade" %}
+                        <!-- Criando input de "deseja excluir os dados antigos?"-->
+                        <label for="usr">Deseja Excluir os dados anteriores?</label>
+                        <input type="checkbox" style="display:block;height:20px" name="excluir">
+                        {% endif %}
+                        
+                        
+                        <button type="submit" class="btn btn-primary  mt-4">
+                            Enviar Arquivos
+                        </button>
+                      </form>
+                </div>
+              </div>
+              <!-- End of Main Content -->
+              {% endif %}
+              
+      
+          </div>
+          <!-- End of Content Wrapper -->
+      <!-- Footer -->
+      {% include 'parcials/_footer.html' %}
+      <!-- End of Footer -->
+      
+      </div>
+      <!-- End of Page Wrapper -->
+      
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fas fa-angle-up"></i>
+      </a>
+      
+      {% include 'parcials/_logout.html' %}
+      
+      {% include 'parcials/_scripts.html' %}
+      
+    </div>
+    {% include 'parcials/_call_alerts.html' %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% if cadastrado %}
+  {% if tipo_cadastro == 'cadastro_geral' %}
+    <script>
+    window.location.href='{% url "cadastrar" database %}';
+    </script>
+  {% elif tipo_cadastro == 'produto_atual' %}
+    <script>
+      window.location.href='{% url "hist_atual" %}';
+    </script>
+  {% elif tipo_cadastro == 'produto_futuro' %}
+    <script>
+      window.location.href='{% url "produto_futuro" %}';
+    </script>
+  {% elif tipo_cadastro == 'filtrar_produto_atual' %}
+  <script>
+    window.location.href='{% url "filtrar_produto_atual" %}';
+  </script>
+  {% endif %}
+{% endif %}
+
+{% if not cadastrado %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {{message.tags}} text-center montserrat" role="alert" style="font-weight: 800; font-size: 20px">
+        {{message}}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,12 @@
+{% if request.session.cadastrando == True %}
+    <script>
+        $("#conteudo-interno").load("{% url 'spinner' %}");
+        function timeout() {
+        setTimeout(function () {
+            $("#messages").load("{% url 'messages' %}");
+            timeout();
+        }, 20000);
+        } 
+        timeout()
+    </script>
+{% endif %}

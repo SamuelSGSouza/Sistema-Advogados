@@ -1,0 +1,15 @@
+.dt-button {
+    border: 1px solid #335acb;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+
+}
+.dt-button:hover {
+    background-color: #335acb;
+    color: white
+
+}
+.dt-button span{
+    padding: 10px 25px!important;
+}

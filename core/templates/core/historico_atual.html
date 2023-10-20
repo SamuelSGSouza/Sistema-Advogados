@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Visualizar Dados{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/pagebuttons.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+{% block conteudo %}
+<div id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    {% include 'parcials/_sidebar.html' %}
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'parcials/_navbar.html' %}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div id="conteudo-interno" class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Produto Final Atual</h1>
+                <p class="mb-4">Você esta vendo todos os clientes da base de produto Final Atual</p>
+                
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Clientes</h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'csv' 1 %}" target="_blank" class="btn btn-success my-3 mx-2">Baixar csv</a>
+                        <h4>Total de {{quantidade}} Clientes encontrados</h4>
+                        <form class="form-inline my-4 " action="{% url 'hist_atual' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" class="form-control mx-2" placeholder="Palavra Chave" id="text" name="atualizar">
+                            <button type="submit" class="btn btn-outline-danger">Atualizar Produto Anterior e Atual</button>
+                          </form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="99%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>CNPJ</th>
+                                        <th>CPF</th>
+                                        <th>Razão Social</th>
+                                        <th>Tipo de Logradouro</th>
+                                        <th>Logradouro</th>
+                                        <th>Número</th>
+                                        <th>Complemento</th>
+                                        <th>Bairro</th>
+                                        <th>Cep</th>
+                                        <th>Município</th>
+                                        <th>Correio Eletrônico</th>
+                                        <th>Telefone 1</th>
+                                        <th>Telefone 2</th>
+                                        <th>Telefones</th>
+                                        <th>OPCAO MEI</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>CNPJ</th>
+                                        <th>CPF</th>
+                                        <th>Razão Social</th>
+                                        <th>Tipo de Logradouro</th>
+                                        <th>Logradouro</th>
+                                        <th>Número</th>
+                                        <th>Complemento</th>
+                                        <th>Bairro</th>
+                                        <th>Cep</th>
+                                        <th>Município</th>
+                                        <th>Correio Eletrônico</th>
+                                        <th>Telefone 1</th>
+                                        <th>Telefone 2</th>
+                                        <th>Telefones</th>
+                                        <th>OPCAO MEI</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for dado in qs %}
+                                        <tr>
+                                            <td>{{dado.cnpj}}</td>
+                                            <td>{{dado.cpf}}</td>
+                                            <td>{{dado.razao_social}}</td>
+                                            <td>{{dado.descricao_tipo_logradouro}}</td>
+                                            <td>{{dado.logradouro}}</td>
+                                            <td>{{dado.numero}}</td>
+                                            <td>{{dado.complemento}}</td>
+                                            <td>{{dado.bairro}}</td>
+                                            <td>{{dado.cep}}</td>
+                                            <td>{{dado.municipio}}</td>
+                                            <td>{{dado.correio_eletronico}}</td>
+                                            <td>{{dado.telefone_1}}</td>
+                                            <td>{{dado.telefone_2}}</td>
+                                            <td>{{dado.telefone_completo}}</td>
+                                            <td>{{dado.opcao_mei}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+        
+        <!-- Footer -->
+        {% include 'parcials/_footer.html' %}
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+{% include 'parcials/_logout.html' %}
+
+{% include 'parcials/_scripts.html' %}
+
+{% include 'parcials/_call_alerts.html' %}
+</div>
+
+
+
+{% endblock %}
