@@ -7,6 +7,7 @@ from configs import models
 from . import models as core_models
 from core import tasks
 import os
+import pandas as pd
 
 from RPA.fase_3.fase_3 import main_fase_3
 
@@ -191,6 +192,139 @@ def cadastrar_termos(request):
     models.TermoCategoria.objects.bulk_create(termos_cadastrar)
 
     return redirect('index')
+
+def cadastrar_nomes_masculinos(request):
+    with open("Configuracoes/nomes_masculinos.txt", "r") as arquivo:
+        nomes = arquivo.read()
+    nomes = nomes.split('\n')
+    nomes = [nome for nome in nomes if len(nome) > 4]
+    nomes = list(set(nomes))
+    nomes = [nome.lower().strip() for nome in nomes]
+
+    nomes_cadastrar = []
+    for nome in nomes:
+        nomes_cadastrar.append(
+            models.NomesMasculinos(
+                nome=nome,
+                fase='Fase 3'
+            )
+        )
+    models.NomesMasculinos.objects.bulk_create(nomes_cadastrar)
+
+    return redirect('index')
+
+def termos_remocao_pagina_email(request):
+    with open("Configuracoes/termos_remocao_pagina_email.txt", "r") as arquivo:
+        termos = arquivo.read()
+    termos = termos.split('\n')
+    termos = [termo for termo in termos if len(termo) > 4]
+    termos = list(set(termos))
+    termos = [termo.lower().strip() for termo in termos]
+
+    termos_cadastrar = []
+    for termo in termos:
+        termos_cadastrar.append(
+            models.TermosRemocaoPaginaEmail(
+                termo=termo,
+                fase='Fase 1'
+            )
+        )
+    models.TermosRemocaoPaginaEmail.objects.bulk_create(termos_cadastrar)
+
+    return redirect('index')
+
+def cadastrar_emails_negativos(request):
+    with open("Configuracoes/emails_negativos.txt", "r") as arquivo:
+        emails = arquivo.read()
+    emails = emails.split('\n')
+    emails = [email for email in emails if len(email) > 4]
+    emails = list(set(emails))
+    emails = [email.lower().strip() for email in emails]
+
+    emails_cadastrar = []
+    for email in emails:
+        emails_cadastrar.append(
+            models.EmailsNegativos(
+                email=email,
+                fase='Fase 3'
+            )
+        )
+    models.EmailsNegativos.objects.bulk_create(emails_cadastrar)
+
+    return redirect('index')
+
+def cadastrar_termos_email_advogados(request):
+    with open("Configuracoes/termos_email_advogado.txt", "r") as arquivo:
+        termos = arquivo.read()
+    termos = termos.split('\n')
+    termos = [termo for termo in termos if len(termo) >= 4]
+    termos = list(set(termos))
+    termos = [termo.lower().strip() for termo in termos]
+
+    termos_cadastrar = []
+    for termo in termos:
+        termos_cadastrar.append(
+            models.TermosEmailAdvogados(
+                termo=termo,
+                fase='Fase 3'
+            )
+        )
+    models.TermosEmailAdvogados.objects.bulk_create(termos_cadastrar)
+
+    return redirect('index')
+
+def cadastrar_termos_negativos_nome_advogado(request):
+    with open("Configuracoes/termos_negativos_nome_advogado.txt", "r") as arquivo:
+        termos = arquivo.read()
+    termos = termos.split('\n')
+    termos = [termo for termo in termos if len(termo) > 4]
+    termos = list(set(termos))
+    termos = [termo.lower().strip() for termo in termos]
+
+    termos_cadastrar = []
+    for termo in termos:
+        termos_cadastrar.append(
+            models.TermoNegativoNomeAdvogado(
+                termo=termo,
+                fase='Fase 3'
+            )
+        )
+    models.TermoNegativoNomeAdvogado.objects.bulk_create(termos_cadastrar)
+
+    return redirect('index')
+
+def cadastrar_emails_clientes(request):
+    with open("Configuracoes/emails_clientes.txt", "r") as arquivo:
+        emails = arquivo.read()
+    emails = emails.split('\n')
+    emails = [email for email in emails if len(email) > 4]
+    emails = list(set(emails))
+    emails = [email.lower().strip() for email in emails]
+
+    emails_cadastrar = []
+    for email in emails:
+        emails_cadastrar.append(
+            models.EmailCliente(
+                email=email,
+                fase='Fase 3'
+            )
+        )
+    models.EmailCliente.objects.bulk_create(emails_cadastrar)
+
+    return redirect('index')
+
+def cadastrar_emails(request):
+    df_emails = pd.read_csv("Configuracoes/emails_cadastrados.csv")
+    emails_cadastrados = [str(x) for x in df_emails["e-mails"].unique().tolist()]
+
+    emails_cadastrar = []
+    for email in emails_cadastrados:
+        emails_cadastrar.append(
+            core_models.Advogado(
+                email=email,
+            )
+        )
+    core_models.Advogado.objects.bulk_create(emails_cadastrar)
 
 def cadastrar_termos_negativos(request):
     with open("Configuracoes/negative_keywords.txt", "r") as arquivo:

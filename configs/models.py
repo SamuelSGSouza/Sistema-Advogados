@@ -35,4 +35,38 @@ class SecoesDesejadas(models.Model):
     fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 2')
     
 
+############## MODELS FASE 3 #####################
+class NomesMasculinos(models.Model):
+    """ Aqui serão inseridos os nomes masculinos que serão usados
+        para identificar os gêneros."""
+    nome = models.CharField(max_length=255, verbose_name='Nome Masculino')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
 
+class TermosRemocaoPaginaEmail(models.Model):
+    """ Aqui serão inseridos os termos que, caso sejam encontrados
+        na página de e-mail, ela será removida."""
+    termo = models.CharField(max_length=255, verbose_name='Termo de Remoção')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
+
+class EmailsNegativos(models.Model):
+    """ Aqui serão inseridos os e-mails que não serão coletados."""
+    email = models.CharField(max_length=255, verbose_name='E-mail de Remoção')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
+
+class TermosEmailAdvogados(models.Model):
+    """ Aqui serão inseridos os termos que, caso sejam encontrados
+        no email a ser distribuído, ele será considerado email de advogado."""
+    termo = models.CharField(max_length=255, verbose_name='Termo de Remoção')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
+
+class TermoNegativoNomeAdvogado(models.Model):
+    """ Aqui serão inseridos os termos que, caso sejam encontrados
+        no nome do advogado, o termo será removido"""
+    termo = models.CharField(max_length=255, verbose_name='Termo de Remoção')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
+
+class EmailCliente(models.Model):
+    """ Aqui serão inseridos os emails dos clientes."""
+    email = models.CharField(max_length=255, verbose_name='E-mail do Cliente')
+    fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 3')
+    

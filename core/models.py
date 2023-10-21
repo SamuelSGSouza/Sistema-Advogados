@@ -19,8 +19,8 @@ class Processo(models.Model):
 
 class Advogado(models.Model):
     email = models.EmailField(max_length=255, primary_key=True, verbose_name='E-mail')
-    nome = models.CharField(max_length=255, verbose_name='Nome')
-    nome_cliente = models.CharField(max_length=255, verbose_name='Nome do Cliente')
+    nome = models.CharField(max_length=255, verbose_name='Nome', null=True, blank=True)
+    nome_cliente = models.CharField(max_length=255, verbose_name='Nome do Cliente', null=True, blank=True)
     oab = models.CharField(max_length=255, verbose_name='OAB', null=True, blank=True)
     email_secundario = models.EmailField(max_length=255, verbose_name='E-mail Secundário', null=True, blank=True)
     possiveis_emails = models.CharField(max_length=255, verbose_name='Possíveis E-mails', null=True, blank=True)

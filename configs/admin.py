@@ -28,3 +28,31 @@ class SecoesDesejadasAdmin(admin.ModelAdmin):
     list_display = ('secao', "fase")
     search_fields = ('secao', )
 
+@admin.register(models.NomesMasculinos)
+class NomesMasculinosAdmin(admin.ModelAdmin):
+    list_display = ('nome', "fase")
+    search_fields = ('nome', )
+
+@admin.register(models.TermosRemocaoPaginaEmail)
+class TermosRemocaoPaginaEmailAdmin(admin.ModelAdmin):
+    list_display = ('termo', "fase")
+    search_fields = ('termo', )
+
+@admin.register(models.EmailsNegativos)
+class EmailsNegativosAdmin(admin.ModelAdmin):
+    list_display = ('email', "fase")
+    search_fields = ('email', )
+
+@admin.register(models.TermosEmailAdvogados)
+class TermosEmailAdvogadosAdmin(admin.ModelAdmin):
+    list_display = ('termo', "fase")
+    search_fields = ('termo', )
+
+@admin.register(models.TermoNegativoNomeAdvogado)
+class TermosNegativosNomeAdvogadoAdmin(admin.ModelAdmin):
+    list_display = ('termo', "fase")
+
+@admin.register(models.EmailCliente)
+class EmailClienteAdmin(admin.ModelAdmin):
+    list_display = ('email', "fase")
+    search_fields = ('email', )
