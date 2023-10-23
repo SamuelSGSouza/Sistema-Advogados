@@ -19,12 +19,13 @@ class Processo(models.Model):
 
 class Advogado(models.Model):
     email = models.EmailField(max_length=255, primary_key=True, verbose_name='E-mail')
+    tratamento = models.CharField(max_length=255, verbose_name='Tratamento', null=True, blank=True)
     nome = models.CharField(max_length=255, verbose_name='Nome', null=True, blank=True)
     nome_cliente = models.CharField(max_length=255, verbose_name='Nome do Cliente', null=True, blank=True)
-    oab = models.CharField(max_length=255, verbose_name='OAB', null=True, blank=True)
     email_secundario = models.EmailField(max_length=255, verbose_name='E-mail Secundário', null=True, blank=True)
     possiveis_emails = models.CharField(max_length=255, verbose_name='Possíveis E-mails', null=True, blank=True)
     email_distribuido = models.BooleanField(verbose_name='E-mail Distribuído', default=False)
     telefones = models.CharField(max_length=255, verbose_name='Telefones', null=True, blank=True)
     sites = models.CharField(max_length=255, verbose_name='Sites', null=True, blank=True)
     data_cadastro = models.DateTimeField(auto_now_add=True, verbose_name='Data de Cadastro no Sistema')
+    data_atualiacao = models.DateTimeField(auto_now=True, verbose_name='Data de Atualização no Sistema')

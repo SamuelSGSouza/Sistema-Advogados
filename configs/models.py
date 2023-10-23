@@ -23,7 +23,7 @@ class TermoCategoria(models.Model):
     """ Aqui serão inseridos os termos que, caso sejam encontrados num
         dos parágrafos durante a leitura do processo, ele será considerado
         daquela categoria."""
-    termo = models.CharField(max_length=255, verbose_name='Termo de Categoria')
+    termo = models.CharField(max_length=255, verbose_name='Termo de Categoria', unique=True)
     categoria = models.CharField(max_length=255, verbose_name='Categoria')
     fase = models.CharField(max_length=255, verbose_name='Fase', default='Fase 1')
 

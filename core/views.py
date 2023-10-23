@@ -137,6 +137,8 @@ def cadastrar_sec_desejadas(request):
     return redirect('index')
 
 def cadastrar_termos(request):
+    #excluir todos os termos
+    # models.TermoCategoria.objects.all().delete()
     with open("Configuracoes/termos_contabilidade.txt", "r") as arquivo:
         termos = arquivo.read()
     termos = termos.split('\n')
@@ -153,7 +155,13 @@ def cadastrar_termos(request):
                 fase='Fase 1'
             )
         )
-    models.TermoCategoria.objects.bulk_create(termos_cadastrar)
+    models.TermoCategoria.objects.bulk_create(
+        termos_cadastrar,
+        update_conflicts=True,
+        unique_fields=['termo',],
+        update_fields=['categoria', 'fase']
+        )
+    
 
     with open("Configuracoes/termos_engenharia.txt", "r") as arquivo:
         termos = arquivo.read()
@@ -171,7 +179,10 @@ def cadastrar_termos(request):
                 fase='Fase 1'
             )
         )
-    models.TermoCategoria.objects.bulk_create(termos_cadastrar)
+    models.TermoCategoria.objects.bulk_create(termos_cadastrar,update_conflicts=True,
+        unique_fields=['termo',],
+        update_fields=['categoria', 'fase']
+        )
 
     with open("Configuracoes/termos_grafotecnica.txt", "r") as arquivo:
         termos = arquivo.read()
@@ -189,8 +200,10 @@ def cadastrar_termos(request):
                 fase='Fase 1'
             )
         )
-    models.TermoCategoria.objects.bulk_create(termos_cadastrar)
-
+    models.TermoCategoria.objects.bulk_create(termos_cadastrar,update_conflicts=True,
+        unique_fields=['termo',],
+        update_fields=['categoria', 'fase']
+        )
     return redirect('index')
 
 def cadastrar_nomes_masculinos(request):

@@ -9,5 +9,5 @@ class ProcessoAdmin(admin.ModelAdmin):
 
 @admin.register(models.Advogado)
 class AdvogadoAdmin(admin.ModelAdmin):
-    list_display = ("email", 'nome', 'oab', )
-    search_fields = ("email", 'nome', 'oab', )
+    list_display = ("email", 'nome', )
+    search_fields = ("email", 'nome',  )
