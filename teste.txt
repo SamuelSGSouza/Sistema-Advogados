@@ -1,0 +1,17 @@
+################ FASE 2 ################
+Quantidade de processos baixados
+Comparação de dados de 10 Processos
+Comparar as seções desejadas
+Quantidade de processos passando para a fase 3
+
+################ FASE 3 ################
+Quantidade de processos capturados da fase 2
+Termos negativos de Página de Email
+Emails negativos
+Quantidade de processos no fim da seção 1 da fase 3
+Quantidade de emails já cadastrados
+Quantidade de Emails de clientes
+Quantidade de dados depois do tratamento
+Quantidade de novos termos da cada categoria (Verificando retroalimentação)
+
+senha.digitaloceanA1z

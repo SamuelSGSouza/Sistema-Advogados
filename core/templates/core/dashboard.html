@@ -25,6 +25,10 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
+                <div class="">
+                    <a href="{% url 'gera_e_retorna_csv' %}?desejado=hoje" class="btn btn-success mx-4">Baixar dados de Hoje</a>
+                    <a href="{% url 'gera_e_retorna_csv' %}" class="btn btn-primary mx-4">Baixar Tudo</a>
+                </div>
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Contagem de Registros dos Bancos de Dados</h1>
                     <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i

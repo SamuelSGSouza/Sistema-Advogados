@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Executar Fase 1{% endblock %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+{% block conteudo %}
+<div id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+  
+      {% include 'parcials/_sidebar.html' %}
+  
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+  
+          <!-- Main Content -->
+          <div id="content">
+  
+              <!-- Topbar -->
+                {% include 'parcials/_navbar.html' %}
+                
+            
+              <!-- Begin Page Content -->
+              <div class="container-fluid" id="conteudo-interno">
+
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Insira os Pdfs de Diários para Iniciar a Execução</h1>
+                </div>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h2 class="h3 mb-0 text-gray-800">Fase Selecionada: <span class="text-primary">Fase 1, Fase 2 e Fase 3</span></h2>
+                </div>
+
+                <div class="container">
+                    {% if status != "Processando" %}
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-wrap" >
+                                <h3>Arraste e solte ou Clique Aqui</h3>
+                                
+                                <i class="fas fa-solid fa-plus fa-2x"></i>
+                                <input type="file" id="files" class="btn btn-default" multiple="multiple" name="arquivos" accept=".pdf" required>
+                            </div>
+                            
+                            
+                            <button type="submit" class="btn btn-primary  mt-4">
+                                Enviar Arquivos
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+              </div>
+              <!-- End of Main Content -->
+              
+      
+          </div>
+          <!-- End of Content Wrapper -->
+      <!-- Footer -->
+      {% include 'parcials/_footer.html' %}
+      <!-- End of Footer -->
+      
+      </div>
+      <!-- End of Page Wrapper -->
+      
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fas fa-angle-up"></i>
+      </a>
+      
+      {% include 'parcials/_logout.html' %}
+      
+      {% include 'parcials/_scripts.html' %}
+      
+    </div>
+    {% include 'parcials/_call_alerts.html' %}
+{% endblock %}

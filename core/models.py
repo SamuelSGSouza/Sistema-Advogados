@@ -18,6 +18,7 @@ class Processo(models.Model):
     data_cadastro = models.DateTimeField(auto_now_add=True, verbose_name='Data de Cadastro no Sistema')
 
 class Advogado(models.Model):
+    processo = models.CharField(max_length=20, verbose_name='Processo', )
     email = models.EmailField(max_length=255, primary_key=True, verbose_name='E-mail')
     tratamento = models.CharField(max_length=255, verbose_name='Tratamento', null=True, blank=True)
     nome = models.CharField(max_length=255, verbose_name='Nome', null=True, blank=True)

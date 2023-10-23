@@ -147,3 +147,5 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 # 7 dias
 # Celery settings
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"
+
+LOGIN_URL = "/admin/login/"
